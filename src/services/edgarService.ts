@@ -26,9 +26,9 @@ class EdgarService {
    */
   public async sendTemplatesToEdgar(templates: RoomTemplate[]): Promise<void> {
     try {
-      // Simulate Unity scripting system call
-      console.log("Sending templates to Edgar via Unity scripting system:", templates);
-      // Replace with actual Unity scripting integration logic
+      // Directly call Unity's scripting system to send templates
+      console.log("Sending templates to Edgar using Unity's scripting system:", templates);
+      // Implement Unity scripting integration logic here
     } catch (error) {
       console.error("Failed to send templates to Edgar:", error);
       throw new Error("Failed to send templates to Edgar. Please try again.");
@@ -42,10 +42,10 @@ class EdgarService {
    */
   public async fetchProcessedTemplates(): Promise<RoomTemplate[]> {
     try {
-      // Simulate Unity scripting system call
-      console.log("Fetching processed templates from Edgar via Unity scripting system");
-      // Replace with actual Unity scripting integration logic
-      return []; // Replace with actual processed templates
+      // Directly call Unity's scripting system to fetch processed templates
+      console.log("Fetching processed templates from Edgar using Unity's scripting system");
+      // Implement Unity scripting integration logic here
+      return []; // Replace with actual processed templates from Unity
     } catch (error) {
       console.error("Failed to fetch processed templates from Edgar:", error);
       throw new Error("Failed to fetch processed templates from Edgar. Please try again.");

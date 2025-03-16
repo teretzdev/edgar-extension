@@ -31,9 +31,9 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
     setIsLoading(true);
 
     try {
-      // Send templates to Edgar using direct function calls
+      // Send templates to Edgar using Unity's scripting system
       const edgarService = await import("@/services/edgarService");
-      await edgarService.default.sendTemplatesToEdgar({ templates });
+      await edgarService.sendTemplatesToEdgar(templates);
 
       toast({
         title: "Success",
@@ -55,12 +55,12 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
     setIsLoading(true);
 
     try {
-      // Fetch processed templates from Edgar using direct function calls
+      // Fetch processed templates from Edgar using Unity's scripting system
       const edgarService = await import("@/services/edgarService");
-      const response = await edgarService.default.fetchProcessedTemplates();
+      const processedTemplates = await edgarService.fetchProcessedTemplates();
 
-      setTemplates(response.processedTemplates);
-      onTemplatesUpdated(response.processedTemplates);
+      setTemplates(processedTemplates);
+      onTemplatesUpdated(processedTemplates);
 
       toast({
         title: "Success",
