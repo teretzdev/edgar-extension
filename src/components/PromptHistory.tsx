@@ -57,6 +57,11 @@ const PromptHistory: React.FC<PromptHistoryProps> = ({ onSelectPrompt, onSavePro
       title: "Prompt Saved",
       description: `The prompt "${prompt.content}" has been saved to the library.`,
     });
+
+    toast({
+      title: "Remix Prompt",
+      description: `The prompt "${prompt.content}" has been remixed successfully.`,
+    });
   };
 
   return (
@@ -94,6 +99,9 @@ const PromptHistory: React.FC<PromptHistoryProps> = ({ onSelectPrompt, onSavePro
                     </Button>
                     <Button variant="primary" onClick={() => handleSavePrompt(item)}>
                       Save to Library
+                    </Button>
+                    <Button variant="secondary" onClick={() => onSelectPrompt({ ...item, content: `Remix: ${item.content}` })}>
+                      Remix
                     </Button>
                   </div>
                 </div>

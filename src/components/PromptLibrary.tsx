@@ -22,6 +22,9 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
   ]);
   const [newTemplateName, setNewTemplateName] = useState("");
   const [newTemplateContent, setNewTemplateContent] = useState("");
+  const [editMode, setEditMode] = useState<string | null>(null);
+  const [editedTemplateName, setEditedTemplateName] = useState("");
+  const [editedTemplateContent, setEditedTemplateContent] = useState("");
   const { toast } = useToast();
 
   const handleAddTemplate = () => {
@@ -76,6 +79,33 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
     });
   };
 
+  const handleEditTemplate = (id: string) => {
+    if (!editedTemplateName.trim() || !editedTemplateContent.trim()) {
+      toast({
+        title: "Error",
+        description: "Template name and content cannot be empty.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setTemplates((prevTemplates) =>
+      prevTemplates.map((template) =>
+        template.id === id
+          ? { ...template, name: editedTemplateName, content: editedTemplateContent }
+          : template
+      )
+    );
+    setEditMode(null);
+    setEditedTemplateName("");
+    setEditedTemplateContent("");
+
+    toast({
+      title: "Success",
+      description: "Template updated successfully.",
+    });
+  };
+
   return (
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
       <h1 className="text-2xl font-bold mb-4">Prompt Library</h1>
@@ -111,17 +141,46 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
           <ul className="space-y-4">
             {templates.map((template) => (
               <li key={template.id} className="p-4 bg-gray-100 rounded-lg shadow-sm">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3 className="text-lg font-bold">{template.name}</h3>
-                    <p className="text-gray-600">{template.content}</p>
+                {editMode === template.id ? (
+                  <div className="grid gap-4">
+                    <div>
+                      <Label htmlFor="edit-template-name">Edit Template Name</Label>
+                      <Input
+                        id="edit-template-name"
+                        type="text"
+                        placeholder="Enter template name"
+                        value={editedTemplateName}
+                        onChange={(e) => setEditedTemplateName(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="edit-template-content">Edit Template Content</Label>
+                      <Input
+                        id="edit-template-content"
+                        type="text"
+                        placeholder="Enter template content"
+                        value={editedTemplateContent}
+                        onChange={(e) => setEditedTemplateContent(e.target.value)}
+                      />
+                    </div>
+                    <Button onClick={() => handleEditTemplate(template.id)}>Save Changes</Button>
+                    <Button variant="outline" onClick={() => setEditMode(null)}>Cancel</Button>
                   </div>
+                ) : (
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-lg font-bold">{template.name}</h3>
+                      <p className="text-gray-600">{template.content}</p>
+                    </div>
                   <div className="flex space-x-2">
                     <Button variant="outline" onClick={() => handleSelectTemplate(template)}>
                       Select
                     </Button>
                     <Button variant="primary" onClick={() => handleSaveTemplate(template)}>
                       Save to Library
+                    </Button>
+                    <Button variant="secondary" onClick={() => setEditMode(template.id)}>
+                      Edit
                     </Button>
                     <Button variant="destructive" onClick={() => handleDeleteTemplate(template.id)}>
                       Delete

@@ -20,6 +20,10 @@ const WorkflowDemo: React.FC = () => {
     setSelectedPrompt(prompt.content);
   };
 
+  const handleRemixPrompt = (prompt: { id: string; content: string }) => {
+    setSelectedPrompt(`Remix of: ${prompt.content}`);
+  };
+
   const handleTemplateGenerated = (template: RoomTemplate) => {
     addRoomTemplate(template);
   };
@@ -56,6 +60,7 @@ const WorkflowDemo: React.FC = () => {
         <PromptHistory
           onSelectPrompt={handlePromptSelect}
           onSavePrompt={handleSavePromptToLibrary}
+          onRemixPrompt={handleRemixPrompt}
         />
       </div>
       <div className="mt-6 bg-white p-4 shadow rounded-lg">
