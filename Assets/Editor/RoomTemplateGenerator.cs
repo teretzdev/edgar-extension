@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
-
-namespace YourNamespace.Editor
+using UnityEngineEdgarAndFriends EdgarAndFriends.Editor
 {
     /// <summary>
     /// Generates room template prefabs based on RoomTemplateData.

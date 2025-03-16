@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// A custom asset database for organizing and categorizing assets for scalability.

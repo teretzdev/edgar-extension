@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// Parses LLM responses into room template data.

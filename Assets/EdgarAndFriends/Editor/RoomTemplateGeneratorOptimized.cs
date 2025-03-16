@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace YourNamespace.Editor
+namespace EdgarAndFriends.Editor
 {
     /// <summary>
     /// Optimized version of the Room Template Generator with enhanced batch processing and prefab saving capabilities.

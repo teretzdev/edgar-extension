@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// Handles the business logic for room template operations, separate from the UI.

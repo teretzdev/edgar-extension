@@ -1,6 +1,6 @@
 {
     "name": "EdgarAndFriends.Editor",
-    "rootNamespace": "YourNamespace.Editor",
+    "rootNamespace": "EdgarAndFriends.Editor",
     "references": [
         "EdgarAndFriends"
     ],

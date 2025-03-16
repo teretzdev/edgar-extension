@@ -2,7 +2,7 @@ using System;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// Validates and sanitizes responses from a Large Language Model (LLM).

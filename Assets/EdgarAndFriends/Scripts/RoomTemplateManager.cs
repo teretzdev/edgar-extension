@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// Manages the creation, retrieval, and deletion of room templates.

@@ -49,7 +49,7 @@ To install the asset:
 ### Example Code
 
 ```csharp
-using YourNamespace;
+using EdgarAndFriends;
 
 public class ExampleUsage : MonoBehaviour
 {

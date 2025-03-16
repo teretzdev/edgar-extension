@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace YourNamespace.Editor
+namespace EdgarAndFriends.Editor
 {
     /// <summary>
     /// Provides a custom editor window for creating and managing room templates.
@@ -25,7 +25,7 @@ namespace YourNamespace.Editor
         private void OnEnable()
         {
             // Find or create a RoomTemplateManager in the scene
-            roomTemplateManager = FindObjectOfType<RoomTemplateManager>();
+            roomTemplateManager = FindObjectOfType<EdgarAndFriends.RoomTemplateManager>();
             if (roomTemplateManager == null)
             {
                 GameObject managerObject = new GameObject("RoomTemplateManager");
@@ -94,7 +94,7 @@ namespace YourNamespace.Editor
                 return;
             }
 
-            RoomTemplate newTemplate = new RoomTemplate(newTemplateName, newTemplateSize, newTemplatePrefab);
+            EdgarAndFriends.RoomTemplate newTemplate = new EdgarAndFriends.RoomTemplate(newTemplateName, newTemplateSize, newTemplatePrefab);
             roomTemplateManager.AddRoomTemplate(newTemplate);
 
             Debug.Log($"Added new room template: {newTemplateName}");

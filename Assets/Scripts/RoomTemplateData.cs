@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// Represents the data structure for room templates with validation and error handling.

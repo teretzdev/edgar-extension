@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace YourNamespace.Examples
+namespace EdgarAndFriends.Examples
 {
     /// <summary>
     /// A basic example controller demonstrating the usage of Edgar and Friends components.

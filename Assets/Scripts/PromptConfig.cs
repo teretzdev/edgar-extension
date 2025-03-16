@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// A ScriptableObject to configure prompt generation for LLM integration.
     /// </summary>
-    [CreateAssetMenu(fileName = "PromptConfig", menuName = "YourNamespace/PromptConfig", order = 0)]
+    [CreateAssetMenu(fileName = "PromptConfig", menuName = "EdgarAndFriends/PromptConfig", order = 0)]
     public class PromptConfig : ScriptableObject
     {
         [Header("Prompt Settings")]
@@ -53,7 +53,7 @@ namespace YourNamespace
                 return basePrompt;
             }
 
-            return $"{basePrompt}\\n\\n{additionalContext}";
+            return $"{basePrompt}\\\n\\\n{additionalContext}";
         }
     }
 }

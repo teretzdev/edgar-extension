@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace YourNamespace
+namespace EdgarAndFriends
 {
     /// <summary>
     /// Handles integration with a Large Language Model (LLM) using a configurable prompt system.

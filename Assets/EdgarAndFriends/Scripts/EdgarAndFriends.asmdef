@@ -1,6 +1,6 @@
 {
     "name": "EdgarAndFriends",
-    "rootNamespace": "YourNamespace",
+    "rootNamespace": "EdgarAndFriends",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],

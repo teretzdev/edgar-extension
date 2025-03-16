@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace YourNamespace.Editor
+namespace EdgarAndFriends.Editor
 {
     /// <summary>
     /// Optimized version of the room template generator with batch operations for better performance.
@@ -123,3 +123,5 @@ namespace YourNamespace.Editor
         }
     }
 }
+
+using EdgarAndFriends;
