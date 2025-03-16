@@ -11,6 +11,9 @@ namespace EdgarAndFriends
         [Tooltip("Reference to the RoomTemplateManager for managing room templates.")]
         [SerializeField] private RoomTemplateManager roomTemplateManager;
 
+        [Tooltip("Reference to the DungeonGenerator for generating dungeons.")]
+        [SerializeField] private DungeonGenerator dungeonGenerator;
+
         [Tooltip("The list of Edgar-compatible room templates.")]
         [SerializeField] private List<RoomTemplateData> edgarRoomTemplates = new List<RoomTemplateData>();
 

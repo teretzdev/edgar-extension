@@ -37,6 +37,18 @@ namespace EdgarAndFriends
                     return null;
                 }
 
+                if (string.IsNullOrWhiteSpace(roomTemplateData.TemplateName))
+                {
+                    Debug.LogError("RoomTemplateData has an empty or null TemplateName.");
+                    return null;
+                }
+
+                if (roomTemplateData.TemplateSize.x <= 0 || roomTemplateData.TemplateSize.y <= 0)
+                {
+                    Debug.LogError("RoomTemplateData has invalid TemplateSize dimensions.");
+                    return null;
+                }
+
                 Debug.Log($"Successfully parsed room template: {roomTemplateData.TemplateName}");
                 return roomTemplateData;
             }

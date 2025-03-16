@@ -34,6 +34,17 @@ const Index = () => {
             Learn More
           </button>
         </div>
+        <div className="mt-12">
+          <h2 className="text-3xl font-bold mb-4 text-center">Room Template Generator Demo</h2>
+          <div className="bg-white shadow-md rounded-lg p-6">
+            <p className="text-gray-600 mb-4">
+              Use the Edgar Room Template Generator to create and manage room templates for your dungeons.
+            </p>
+            <button className="bg-green-500 text-white px-6 py-3 rounded-lg shadow-md hover:bg-green-600">
+              Generate Room Template
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   );
