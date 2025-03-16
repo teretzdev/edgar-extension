@@ -1,3 +1,4 @@
+i saw mention of an edgar api. i didnt believe one existed.
 import React, { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
