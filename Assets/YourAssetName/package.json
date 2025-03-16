@@ -1,0 +1,35 @@
+{
+  "name": "com.yourcompany.yourassetname",
+  "version": "0.1.0",
+  "displayName": "Your Asset Name",
+  "description": "A brief description of your Unity asset.",
+  "unity": "2020.3",
+  "documentationUrl": "https://github.com/yourusername/your-repo/blob/main/Assets/YourAssetName/Documentation/README.md",
+  "changelogUrl": "https://github.com/yourusername/your-repo/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/yourusername/your-repo/blob/main/LICENSE.md",
+  "keywords": [
+    "keyword1",
+    "keyword2",
+    "keyword3"
+  ],
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com",
+    "url": "https://www.yourwebsite.com"
+  },
+  "dependencies": {
+    
+  },
+  "samples": [
+    {
+      "displayName": "Basic Example",
+      "description": "Contains a basic example of the asset usage",
+      "path": "Examples/BasicExample"
+    },
+    {
+      "displayName": "Advanced Example",
+      "description": "Contains an advanced example of the asset usage",
+      "path": "Examples/AdvancedExample"
+    }
+  ]
+}
