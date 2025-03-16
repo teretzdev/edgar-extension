@@ -32,7 +32,7 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
 
     try {
       // Send templates to Edgar API
-      const response = await fetch("https://api.edgar.com/templates", {
+      const response = await fetch(`${process.env.EDGAR_API_URL}/templates`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send templates to Edgar.");
+        throw new Error("Failed to send templates to Edgar API.");
       }
 
       toast({
@@ -66,7 +66,7 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
 
     try {
       // Fetch processed templates from Edgar API
-      const response = await fetch("https://api.edgar.com/templates/processed", {
+      const response = await fetch(`${process.env.EDGAR_API_URL}/templates/processed`, {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${process.env.EDGAR_API_TOKEN}`,
@@ -74,7 +74,7 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
       });
 
       if (!response.ok) {
-        throw new Error("Failed to receive processed templates from Edgar.");
+        throw new Error("Failed to fetch processed templates from Edgar API.");
       }
 
       const processedTemplates: RoomTemplate[] = await response.json();

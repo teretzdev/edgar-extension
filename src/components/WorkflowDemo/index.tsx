@@ -28,7 +28,8 @@ const WorkflowDemo: React.FC = () => {
     remixPrompt(prompt.id);
     const remixedContent = `${prompt.content} [Remixed]`;
     setSelectedPrompt(remixedContent);
-    console.log(`Prompt remixed: ${remixedContent}`);
+    addPrompt(remixedContent);
+    console.log(`Prompt remixed and added to history: ${remixedContent}`);
   };
 
   const handleTemplateGenerated = (template: RoomTemplate) => {
