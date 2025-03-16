@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace EdgarAndFriends
 {
@@ -48,9 +49,26 @@ namespace EdgarAndFriends
             // Example: Use UnityWebRequest or a third-party library to send the prompt to the LLM API.
             Debug.Log("Sending request to LLM API...");
             
-            // Simulated API call logic
-            string simulatedResponse = $"{{\"TemplateName\": \"GeneratedRoom\", \"TemplateSize\": {{\"x\": 15, \"y\": 15}}, \"TemplatePrefab\": null}}";
-            return simulatedResponse;
+            using (UnityWebRequest webRequest = UnityWebRequest.Post("https://api.llm-service.com/generate", prompt))
+            {
+                webRequest.SetRequestHeader("Content-Type", "application/json");
+                webRequest.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes($"{{\"prompt\": \"{prompt}\"}}"));
+                webRequest.downloadHandler = new DownloadHandlerBuffer();
+
+                var operation = webRequest.SendWebRequest();
+                while (!operation.isDone) { }
+
+                if (webRequest.result == UnityWebRequest.Result.Success)
+                {
+                    Debug.Log("Received response from LLM API.");
+                    return webRequest.downloadHandler.text;
+                }
+                else
+                {
+                    Debug.LogError($"Error sending request to LLM API: {webRequest.error}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>

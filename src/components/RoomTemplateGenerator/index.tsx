@@ -36,8 +36,8 @@ const RoomTemplateGenerator: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Simulate API call to generate room template
-      const response = await fetch("/api/generate-room-template", {
+      // Make actual API call to LLM service to generate room template
+      const response = await fetch("/api/llm/generate-room-template", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

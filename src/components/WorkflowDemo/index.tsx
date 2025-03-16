@@ -1,4 +1,4 @@
-ing.simulkationimport React, { useState } from "react";
+import React, { useState } from "react";
 import RoomTemplateGenerator from "@/components/RoomTemplateGenerator";
 import DungeonVisualizer from "@/components/DungeonVisualizer";
 import PromptLibrary from "@/components/PromptLibrary";

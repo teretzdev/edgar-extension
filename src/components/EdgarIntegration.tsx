@@ -31,11 +31,12 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
     setIsLoading(true);
 
     try {
-      // Simulate sending templates to Edgar
-      const response = await fetch("/api/send-to-edgar", {
+      // Send templates to Edgar API
+      const response = await fetch("https://api.edgar.com/templates", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.EDGAR_API_TOKEN}`,
         },
         body: JSON.stringify({ templates }),
       });
@@ -64,8 +65,13 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
     setIsLoading(true);
 
     try {
-      // Simulate receiving processed templates from Edgar
-      const response = await fetch("/api/receive-from-edgar");
+      // Fetch processed templates from Edgar API
+      const response = await fetch("https://api.edgar.com/templates/processed", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${process.env.EDGAR_API_TOKEN}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Failed to receive processed templates from Edgar.");
