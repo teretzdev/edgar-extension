@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import PromptHistory from "@/components/PromptHistory";
 
 type RoomTemplate = {
   name: string;
@@ -14,6 +15,7 @@ const RoomTemplateGenerator: React.FC = () => {
   const [prompt, setPrompt] = useState("");
   const [generatedTemplate, setGeneratedTemplate] = useState<RoomTemplate | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [promptHistory, setPromptHistory] = useState<string[]>([]);
   const { toast } = useToast();
 
   const handleGenerateTemplate = async () => {
@@ -45,6 +47,9 @@ const RoomTemplateGenerator: React.FC = () => {
       const data: RoomTemplate = await response.json();
       setGeneratedTemplate(data);
 
+      // Add prompt to history
+      setPromptHistory((prevHistory) => [...prevHistory, prompt]);
+
       toast({
         title: "Success",
         description: "Room template generated successfully.",
@@ -59,6 +64,10 @@ const RoomTemplateGenerator: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleSelectPrompt = (selectedPrompt: string) => {
+    setPrompt(selectedPrompt);
   };
 
   return (
@@ -92,6 +101,12 @@ const RoomTemplateGenerator: React.FC = () => {
           </p>
         </div>
       )}
+      <div className="mt-6">
+        <PromptHistory
+          onSelectPrompt={(prompt) => handleSelectPrompt(prompt.content)}
+          onSavePrompt={(prompt) => console.log("Save prompt:", prompt)}
+        />
+      </div>
     </div>
   );
 };

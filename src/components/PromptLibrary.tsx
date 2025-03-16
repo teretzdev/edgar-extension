@@ -58,6 +58,16 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
     });
   };
 
+  const handleSaveTemplate = (template: PromptTemplate) => {
+    const confirmation = window.confirm(`Are you sure you want to save "${template.name}" to the library?`);
+    if (!confirmation) return;
+
+    toast({
+      title: "Template Saved",
+      description: `The template "${template.name}" has been saved to the library.`,
+    });
+  };
+
   const handleDeleteTemplate = (id: string) => {
     setTemplates((prevTemplates) => prevTemplates.filter((template) => template.id !== id));
     toast({
@@ -109,6 +119,9 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
                   <div className="flex space-x-2">
                     <Button variant="outline" onClick={() => handleSelectTemplate(template)}>
                       Select
+                    </Button>
+                    <Button variant="primary" onClick={() => handleSaveTemplate(template)}>
+                      Save to Library
                     </Button>
                     <Button variant="destructive" onClick={() => handleDeleteTemplate(template.id)}>
                       Delete

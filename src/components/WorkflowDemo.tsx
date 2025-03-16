@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import RoomTemplateGenerator from "@/components/RoomTemplateGenerator";
 import DungeonVisualizer from "@/components/DungeonVisualizer";
 import PromptLibrary from "@/components/PromptLibrary";
+import PromptHistory from "@/components/PromptHistory";
 import EdgarIntegration from "@/components/EdgarIntegration";
 import useRoomTemplates from "@/hooks/useRoomTemplates";
 import { RoomTemplate } from "@/types/roomTemplate";
@@ -27,6 +28,11 @@ const WorkflowDemo: React.FC = () => {
     templates.forEach((template) => addRoomTemplate(template));
   };
 
+  const handleSavePromptToLibrary = (prompt: { id: string; content: string }) => {
+    console.log(`Saving prompt to library: ${prompt.content}`);
+    // Add logic to save the prompt to the library
+  };
+
   return (
     <div className="max-w-5xl mx-auto p-6 bg-gray-50 shadow-md rounded-lg">
       <h1 className="text-3xl font-bold mb-6 text-center">
@@ -44,6 +50,13 @@ const WorkflowDemo: React.FC = () => {
             initialPrompt={selectedPrompt || ""}
           />
         </div>
+      </div>
+      <div className="mt-6 bg-white p-4 shadow rounded-lg">
+        <h2 className="text-xl font-semibold mb-4">Prompt History</h2>
+        <PromptHistory
+          onSelectPrompt={handlePromptSelect}
+          onSavePrompt={handleSavePromptToLibrary}
+        />
       </div>
       <div className="mt-6 bg-white p-4 shadow rounded-lg">
         <h2 className="text-xl font-semibold mb-4">Dungeon Visualizer</h2>
