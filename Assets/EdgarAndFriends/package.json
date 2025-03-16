@@ -1,0 +1,33 @@
+{
+  "name": "com.teretzdev.edgarandfriends",
+  "version": "1.0.0",
+  "displayName": "Edgar and Friends",
+  "description": "A Unity asset for creating, managing, and integrating room templates with advanced features like Large Language Model (LLM) integration and Edgar compatibility.",
+  "unity": "2020.3",
+  "documentationUrl": "https://github.com/teretzdev/edgar-extension/blob/main/Assets/EdgarAndFriends/Documentation/README.md",
+  "changelogUrl": "https://github.com/teretzdev/edgar-extension/blob/main/CHANGELOG.md",
+  "licensesUrl": "https://github.com/teretzdev/edgar-extension/blob/main/LICENSE.md",
+  "keywords": [
+    "room templates",
+    "procedural generation",
+    "LLM integration",
+    "Edgar compatibility",
+    "Unity"
+  ],
+  "author": {
+    "name": "Teretz Dev",
+    "email": "support@teretzdev.com",
+    "url": "https://www.teretzdev.com"
+  },
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6",
+    "com.unity.addressables": "1.19.19"
+  },
+  "samples": [
+    {
+      "displayName": "Basic Example",
+      "description": "A basic example demonstrating the usage of Edgar and Friends.",
+      "path": "Examples/BasicExample"
+    }
+  ]
+}
