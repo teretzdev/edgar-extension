@@ -47,7 +47,10 @@ namespace EdgarAndFriends
             // Replace this with actual API call logic.
             // Example: Use UnityWebRequest or a third-party library to send the prompt to the LLM API.
             Debug.Log("Sending request to LLM API...");
-            return $"Response from LLM API for prompt: {prompt}";
+            
+            // Simulated API call logic
+            string simulatedResponse = $"{{\"TemplateName\": \"GeneratedRoom\", \"TemplateSize\": {{\"x\": 15, \"y\": 15}}, \"TemplatePrefab\": null}}";
+            return simulatedResponse;
         }
 
         /// <summary>
@@ -62,8 +65,31 @@ namespace EdgarAndFriends
                 return;
             }
 
-            // Process the response (e.g., display it in the UI, use it in gameplay logic, etc.)
-            Debug.Log($"Received response from LLM: {response}");
+            // Parse the response into RoomTemplateData
+            RoomTemplateParser parser = new RoomTemplateParser();
+            RoomTemplateData roomTemplateData = parser.ParseResponse(response);
+
+            if (roomTemplateData == null)
+            {
+                Debug.LogError("Failed to parse LLM response into RoomTemplateData.");
+                return;
+            }
+
+            // Example: Add the parsed room template to the RoomTemplateManager
+            RoomTemplateManager roomTemplateManager = FindObjectOfType<RoomTemplateManager>();
+            if (roomTemplateManager != null)
+            {
+                roomTemplateManager.AddRoomTemplate(new RoomTemplate(
+                    roomTemplateData.TemplateName,
+                    roomTemplateData.TemplateSize,
+                    roomTemplateData.TemplatePrefab
+                ));
+                Debug.Log($"Room template '{roomTemplateData.TemplateName}' added to RoomTemplateManager.");
+            }
+            else
+            {
+                Debug.LogError("RoomTemplateManager not found in the scene.");
+            }
         }
     }
 }
