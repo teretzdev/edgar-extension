@@ -1,6 +1,10 @@
 // Update this page (the content is just a fallback if you fail to update the page). Always include w-full and min-h-screen classes in the main element.
 import WorkflowDemo from "@/components/WorkflowDemo";
 
+import WorkflowDemo from "@/components/WorkflowDemo";
+import RoomTemplateGenerator from "@/components/RoomTemplateGenerator";
+import DungeonVisualizer from "@/components/DungeonVisualizer";
+
 const Index = () => {
   return (
     <main className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-100">
@@ -22,5 +26,7 @@ const Index = () => {
     </main>
   );
 };
+
+export default Index;
 
 export default Index;
