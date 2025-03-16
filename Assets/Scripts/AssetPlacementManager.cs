@@ -93,7 +93,7 @@ namespace YourNamespace
         }
 
         /// <summary>
-        /// Clears all assets placed in the scene.
+        /// Clears all assets placed in the scene and resets their positions.
         /// </summary>
         public void ClearPlacedAssets()
         {
@@ -101,11 +101,12 @@ namespace YourNamespace
             {
                 if (asset != null)
                 {
-                    Destroy(asset);
+                    asset.transform.position = Vector3.zero;
+                    Debug.Log($"Reset position of asset '{asset.name}' to {Vector3.zero}.");
                 }
             }
 
-            Debug.Log("Cleared all placed assets.");
+            Debug.Log("Cleared all placed assets and reset their positions.");
         }
     }
 }

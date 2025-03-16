@@ -61,6 +61,11 @@ namespace YourNamespace.Editor
                 {
                     EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.LabelField(template.Name, GUILayout.Width(150));
+                    EditorGUILayout.LabelField($"Size: {template.Size}", GUILayout.Width(100));
+                    if (GUILayout.Button("Edit", GUILayout.Width(100)))
+                    {
+                        EditRoomTemplate(template);
+                    }
                     if (GUILayout.Button("Remove", GUILayout.Width(100)))
                     {
                         RemoveRoomTemplate(template);
@@ -92,10 +97,33 @@ namespace YourNamespace.Editor
             RoomTemplate newTemplate = new RoomTemplate(newTemplateName, newTemplateSize, newTemplatePrefab);
             roomTemplateManager.AddRoomTemplate(newTemplate);
 
+            Debug.Log($"Added new room template: {newTemplateName}");
+
             // Clear input fields
             newTemplateName = string.Empty;
             newTemplateSize = Vector2.one;
             newTemplatePrefab = null;
+        }
+
+        private void EditRoomTemplate(RoomTemplate template)
+        {
+            newTemplateName = template.Name;
+            newTemplateSize = template.Size;
+            newTemplatePrefab = template.Prefab;
+
+            if (GUILayout.Button("Save Changes"))
+            {
+                template.Name = newTemplateName;
+                template.Size = newTemplateSize;
+                template.Prefab = newTemplatePrefab;
+
+                Debug.Log($"Updated room template: {template.Name}");
+
+                // Clear input fields
+                newTemplateName = string.Empty;
+                newTemplateSize = Vector2.one;
+                newTemplatePrefab = null;
+            }
         }
 
         private void RemoveRoomTemplate(RoomTemplate template)

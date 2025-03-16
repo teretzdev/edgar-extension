@@ -13,7 +13,7 @@ namespace YourNamespace
         [SerializeField] private List<AssetCategory> assetCategories = new List<AssetCategory>();
 
         /// <summary>
-        /// Adds a new asset to a specified category.
+        /// Adds a new asset to a specified category. If the category does not exist, it will be created.
         /// </summary>
         /// <param name="categoryName">The name of the category.</param>
         /// <param name="asset">The asset to add.</param>
@@ -44,7 +44,7 @@ namespace YourNamespace
         }
 
         /// <summary>
-        /// Removes an asset from a specified category.
+        /// Removes an asset from a specified category. Logs a warning if the category or asset does not exist.
         /// </summary>
         /// <param name="categoryName">The name of the category.</param>
         /// <param name="asset">The asset to remove.</param>
@@ -74,7 +74,7 @@ namespace YourNamespace
         }
 
         /// <summary>
-        /// Retrieves all assets in a specified category.
+        /// Retrieves all assets in a specified category. Returns null if the category does not exist.
         /// </summary>
         /// <param name="categoryName">The name of the category.</param>
         /// <returns>A list of assets in the category, or null if the category does not exist.</returns>
@@ -97,7 +97,7 @@ namespace YourNamespace
         }
 
         /// <summary>
-        /// Retrieves all categories in the database.
+        /// Retrieves all categories in the database as a new list.
         /// </summary>
         /// <returns>A list of all asset categories.</returns>
         public List<AssetCategory> GetAllCategories()
@@ -106,7 +106,7 @@ namespace YourNamespace
         }
 
         /// <summary>
-        /// Finds a category by its name.
+        /// Finds a category by its name. Returns null if no matching category is found.
         /// </summary>
         /// <param name="categoryName">The name of the category to find.</param>
         /// <returns>The category if found, otherwise null.</returns>

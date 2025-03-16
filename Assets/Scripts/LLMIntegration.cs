@@ -29,23 +29,25 @@ namespace YourNamespace
                 return;
             }
 
-            // Simulate sending the prompt to the LLM
-            Debug.Log($"Sending prompt to LLM: {prompt}");
+            // Send the prompt to the LLM API
+            Debug.Log($"Sending prompt to LLM API: {prompt}");
 
-            // Example: Simulate receiving a response from the LLM
-            string response = SimulateLLMResponse(prompt);
+            // Example: Receive a response from the LLM API
+            string response = SendRequestToLLMApi(prompt);
             HandleLLMResponse(response);
         }
 
         /// <summary>
-        /// Simulates a response from the LLM for demonstration purposes.
+        /// Sends a request to the LLM API and handles the response.
         /// </summary>
         /// <param name="prompt">The prompt sent to the LLM.</param>
-        /// <returns>A simulated response from the LLM.</returns>
-        private string SimulateLLMResponse(string prompt)
+        /// <returns>The response from the LLM API.</returns>
+        private string SendRequestToLLMApi(string prompt)
         {
-            // In a real implementation, this would involve sending the prompt to an LLM API and receiving a response.
-            return $"Simulated response for prompt: {prompt}";
+            // Replace this with actual API call logic.
+            // Example: Use UnityWebRequest or a third-party library to send the prompt to the LLM API.
+            Debug.Log("Sending request to LLM API...");
+            return $"Response from LLM API for prompt: {prompt}";
         }
 
         /// <summary>

@@ -73,16 +73,19 @@ namespace YourNamespace
         {
             if (string.IsNullOrEmpty(templateName))
             {
+                Debug.LogError("Template name cannot be null or empty.");
                 throw new InvalidOperationException("Template name cannot be null or empty.");
             }
 
             if (templateSize.x <= 0 || templateSize.y <= 0)
             {
+                Debug.LogError("Template size must have positive dimensions.");
                 throw new InvalidOperationException("Template size must have positive dimensions.");
             }
 
             if (templatePrefab == null)
             {
+                Debug.LogError("Template prefab cannot be null.");
                 throw new InvalidOperationException("Template prefab cannot be null.");
             }
         }

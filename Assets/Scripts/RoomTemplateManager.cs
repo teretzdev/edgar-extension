@@ -8,8 +8,8 @@ namespace YourNamespace
     /// </summary>
     public class RoomTemplateManager : MonoBehaviour
     {
-        // A list to store room templates
-        private List<RoomTemplate> roomTemplates = new List<RoomTemplate>();
+        // A dictionary to store room templates by name for faster lookups
+        private Dictionary<string, RoomTemplate> roomTemplates = new Dictionary<string, RoomTemplate>();
 
         /// <summary>
         /// Adds a new room template to the manager.
@@ -23,7 +23,13 @@ namespace YourNamespace
                 return;
             }
 
-            roomTemplates.Add(template);
+            if (roomTemplates.ContainsKey(template.Name))
+            {
+                Debug.LogWarning($"Room template with name '{template.Name}' already exists. Skipping addition.");
+                return;
+            }
+
+            roomTemplates.Add(template.Name, template);
             Debug.Log($"Room template '{template.Name}' added successfully.");
         }
 
@@ -39,13 +45,13 @@ namespace YourNamespace
                 return;
             }
 
-            if (roomTemplates.Remove(template))
+            if (roomTemplates.Remove(template.Name))
             {
                 Debug.Log($"Room template '{template.Name}' removed successfully.");
             }
             else
             {
-                Debug.LogWarning($"Room template '{template.Name}' not found.");
+                Debug.LogWarning($"Room template with name '{template.Name}' not found.");
             }
         }
 
@@ -55,7 +61,7 @@ namespace YourNamespace
         /// <returns>A list of all room templates.</returns>
         public List<RoomTemplate> GetAllRoomTemplates()
         {
-            return new List<RoomTemplate>(roomTemplates);
+            return new List<RoomTemplate>(roomTemplates.Values);
         }
 
         /// <summary>
@@ -71,12 +77,9 @@ namespace YourNamespace
                 return null;
             }
 
-            foreach (var template in roomTemplates)
+            if (roomTemplates.TryGetValue(name, out var template))
             {
-                if (template.Name == name)
-                {
-                    return template;
-                }
+                return template;
             }
 
             Debug.LogWarning($"Room template with name '{name}' not found.");
