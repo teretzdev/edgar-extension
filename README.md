@@ -16,8 +16,17 @@ A brief description of your Unity3D asset, what it does, and why it's useful.
 - Additional requirements (if any)
 
 ## Installation
-1. Import the package into your Unity project
-2. [Additional installation steps if needed]
+1. Import the package into your Unity project.
+2. Ensure the following files are included in your project:
+   - `Assets/Scripts/RoomTemplateParser.cs`
+   - `Assets/Scripts/LLMResponseValidator.cs`
+   - `Assets/Scripts/EdgarIntegration.cs`
+   - `Assets/Scripts/RoomTemplateManager.cs`
+   - `Assets/Scripts/RoomTemplateData.cs`
+3. Follow these steps to set up the asset:
+   - Assign the `RoomTemplateManager` to your scene.
+   - Configure the `EdgarIntegration` component to synchronize room templates.
+   - Use `LLMResponseValidator` and `RoomTemplateParser` for handling LLM responses.
 
 ## Quick Start
 ```csharp
