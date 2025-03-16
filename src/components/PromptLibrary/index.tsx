@@ -65,12 +65,30 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
     const confirmation = window.confirm(`Are you sure you want to save "${template.name}" to the library?`);
     if (!confirmation) return;
 
-    // Add logic to save the template to the library
     console.log(`Saving template "${template.name}" to the library.`);
 
     toast({
       title: "Template Saved",
       description: `The template "${template.name}" has been saved to the library.`,
+    });
+  };
+
+  const handleRemixTemplate = (template: PromptTemplate) => {
+    const confirmation = window.confirm(`Are you sure you want to remix "${template.name}"?`);
+    if (!confirmation) return;
+
+    const remixedTemplate: PromptTemplate = {
+      ...template,
+      id: Date.now().toString(),
+      name: `${template.name} (Remixed)`,
+      content: `${template.content} [Remixed]`,
+    };
+
+    setTemplates((prevTemplates) => [...prevTemplates, remixedTemplate]);
+
+    toast({
+      title: "Template Remixed",
+      description: `The template "${template.name}" has been remixed successfully.`,
     });
   };
 
@@ -187,6 +205,9 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
                       </Button>
                       <Button variant="secondary" onClick={() => setEditMode(template.id)}>
                         Edit
+                      </Button>
+                      <Button variant="secondary" onClick={() => handleRemixTemplate(template)}>
+                        Remix
                       </Button>
                       <Button variant="destructive" onClick={() => handleDeleteTemplate(template.id)}>
                         Delete

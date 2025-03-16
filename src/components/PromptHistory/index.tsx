@@ -3,25 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import usePromptHistory from "@/hooks/usePromptHistory";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
-type PromptHistoryItem = {
-  id: string;
-  content: string;
-};
-
-type PromptHistoryProps = {
-  onSelectPrompt: (prompt: PromptHistoryItem) => void;
-  onSavePrompt: (prompt: PromptHistoryItem) => void;
-  onRemixPrompt: (prompt: PromptHistoryItem) => void;
-};
-
-const PromptHistory: React.FC<PromptHistoryProps> = ({
-  onSelectPrompt,
-  onSavePrompt,
-  onRemixPrompt,
-}) => {
-  const [history, setHistory] = useState<PromptHistoryItem[]>([]);
+const PromptHistory: React.FC = () => {
+  const { history, addPrompt, remixPrompt, savePromptToLibrary } = usePromptHistory();
   const [newPrompt, setNewPrompt] = useState("");
+  const [remixDialogOpen, setRemixDialogOpen] = useState(false);
+  const [selectedPromptId, setSelectedPromptId] = useState<string | null>(null);
   const { toast } = useToast();
 
   const handleAddToHistory = () => {
@@ -34,12 +23,7 @@ const PromptHistory: React.FC<PromptHistoryProps> = ({
       return;
     }
 
-    const newHistoryItem: PromptHistoryItem = {
-      id: Date.now().toString(),
-      content: newPrompt,
-    };
-
-    setHistory((prevHistory) => [...prevHistory, newHistoryItem]);
+    addPrompt(newPrompt);
     setNewPrompt("");
 
     toast({
@@ -48,27 +32,28 @@ const PromptHistory: React.FC<PromptHistoryProps> = ({
     });
   };
 
-  const handleSelectPrompt = (prompt: PromptHistoryItem) => {
-    onSelectPrompt(prompt);
-    toast({
-      title: "Prompt Selected",
-      description: `You selected the prompt: ${prompt.content}`,
-    });
+  const handleRemixPrompt = (id: string) => {
+    setSelectedPromptId(id);
+    setRemixDialogOpen(true);
   };
 
-  const handleSavePrompt = (prompt: PromptHistoryItem) => {
-    onSavePrompt(prompt);
+  const confirmRemixPrompt = () => {
+    if (selectedPromptId) {
+      remixPrompt(selectedPromptId);
+      toast({
+        title: "Prompt Remixed",
+        description: "The prompt has been remixed successfully.",
+      });
+    }
+    setRemixDialogOpen(false);
+    setSelectedPromptId(null);
+  };
+
+  const handleSavePrompt = (id: string) => {
+    savePromptToLibrary(id);
     toast({
       title: "Prompt Saved",
-      description: `The prompt "${prompt.content}" has been saved to the library.`,
-    });
-  };
-
-  const handleRemixPrompt = (prompt: PromptHistoryItem) => {
-    onRemixPrompt(prompt);
-    toast({
-      title: "Prompt Remixed",
-      description: `The prompt "${prompt.content}" has been remixed successfully.`,
+      description: "The prompt has been saved to the library.",
     });
   };
 
@@ -102,14 +87,11 @@ const PromptHistory: React.FC<PromptHistoryProps> = ({
                     <p className="text-gray-600">{item.content}</p>
                   </div>
                   <div className="flex space-x-2">
-                    <Button variant="outline" onClick={() => handleSelectPrompt(item)}>
-                      Select
-                    </Button>
-                    <Button variant="primary" onClick={() => handleSavePrompt(item)}>
-                      Save to Library
-                    </Button>
-                    <Button variant="secondary" onClick={() => handleRemixPrompt(item)}>
+                    <Button variant="secondary" onClick={() => handleRemixPrompt(item.id)}>
                       Remix
+                    </Button>
+                    <Button variant="primary" onClick={() => handleSavePrompt(item.id)}>
+                      Save to Library
                     </Button>
                   </div>
                 </div>
@@ -120,6 +102,22 @@ const PromptHistory: React.FC<PromptHistoryProps> = ({
           <p className="text-gray-600">No prompts in history. Add a new prompt to get started.</p>
         )}
       </div>
+      <Dialog open={remixDialogOpen} onOpenChange={setRemixDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Remix</DialogTitle>
+          </DialogHeader>
+          <p>Are you sure you want to remix this prompt?</p>
+          <div className="flex justify-end space-x-2 mt-4">
+            <Button variant="outline" onClick={() => setRemixDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={confirmRemixPrompt}>
+              Confirm
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

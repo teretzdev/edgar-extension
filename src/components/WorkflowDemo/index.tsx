@@ -16,8 +16,8 @@ const WorkflowDemo: React.FC = () => {
     deleteRoomTemplate,
     clearSelectedTemplate,
   } = useRoomTemplates();
-  const { addPrompt } = usePromptHistory();
-  const { addPrompt: addPromptToLibrary } = usePromptLibrary();
+  const { history, addPrompt, remixPrompt, savePromptToLibrary } = usePromptHistory();
+  const { prompts, addPrompt: addPromptToLibrary, editPrompt, deletePrompt } = usePromptLibrary();
   const [selectedPrompt, setSelectedPrompt] = useState<string | null>(null);
 
   const handlePromptSelect = (prompt: { id: string; content: string }) => {
@@ -25,9 +25,9 @@ const WorkflowDemo: React.FC = () => {
   };
 
   const handleRemixPrompt = (prompt: { id: string; content: string }) => {
-    const remixedContent = `Remix of: ${prompt.content}`;
+    remixPrompt(prompt.id);
+    const remixedContent = `${prompt.content} [Remixed]`;
     setSelectedPrompt(remixedContent);
-    addPrompt(remixedContent);
     console.log(`Prompt remixed: ${remixedContent}`);
   };
 
@@ -40,7 +40,7 @@ const WorkflowDemo: React.FC = () => {
   };
 
   const handleSavePromptToLibrary = (prompt: { id: string; content: string }) => {
-    addPromptToLibrary(prompt.id, prompt.content);
+    savePromptToLibrary(prompt);
     console.log(`Prompt saved to library: ${prompt.content}`);
   };
 
