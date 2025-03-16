@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace EdgarAndFriends
 {
@@ -47,7 +48,27 @@ namespace EdgarAndFriends
             // Replace this with actual API call logic.
             // Example: Use UnityWebRequest or a third-party library to send the prompt to the LLM API.
             Debug.Log("Sending request to LLM API...");
-            return $"Response from LLM API for prompt: {prompt}";
+            
+            using (UnityWebRequest webRequest = UnityWebRequest.Post("https://api.llm-service.com/generate", prompt))
+            {
+                webRequest.SetRequestHeader("Content-Type", "application/json");
+                webRequest.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes($"{{\"prompt\": \"{prompt}\"}}"));
+                webRequest.downloadHandler = new DownloadHandlerBuffer();
+
+                var operation = webRequest.SendWebRequest();
+                while (!operation.isDone) { }
+
+                if (webRequest.result == UnityWebRequest.Result.Success)
+                {
+                    Debug.Log("Received response from LLM API.");
+                    return webRequest.downloadHandler.text;
+                }
+                else
+                {
+                    Debug.LogError($"Error sending request to LLM API: {webRequest.error}");
+                    return null;
+                }
+            }
         }
 
         /// <summary>
@@ -62,8 +83,31 @@ namespace EdgarAndFriends
                 return;
             }
 
-            // Process the response (e.g., display it in the UI, use it in gameplay logic, etc.)
-            Debug.Log($"Received response from LLM: {response}");
+            // Parse the response into RoomTemplateData
+            RoomTemplateParser parser = new RoomTemplateParser();
+            RoomTemplateData roomTemplateData = parser.ParseResponse(response);
+
+            if (roomTemplateData == null)
+            {
+                Debug.LogError("Failed to parse LLM response into RoomTemplateData.");
+                return;
+            }
+
+            // Example: Add the parsed room template to the RoomTemplateManager
+            RoomTemplateManager roomTemplateManager = FindObjectOfType<RoomTemplateManager>();
+            if (roomTemplateManager != null)
+            {
+                roomTemplateManager.AddRoomTemplate(new RoomTemplate(
+                    roomTemplateData.TemplateName,
+                    roomTemplateData.TemplateSize,
+                    roomTemplateData.TemplatePrefab
+                ));
+                Debug.Log($"Room template '{roomTemplateData.TemplateName}' added to RoomTemplateManager.");
+            }
+            else
+            {
+                Debug.LogError("RoomTemplateManager not found in the scene.");
+            }
         }
     }
 }

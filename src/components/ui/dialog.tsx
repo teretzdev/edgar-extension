@@ -46,6 +46,20 @@ const DialogContent = React.forwardRef<
         <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
       </DialogPrimitive.Close>
+      <div className="flex justify-end space-x-2 mt-4">
+        <button
+          className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover"
+          onClick={() => console.log("Confirm action")}
+        >
+          Confirm
+        </button>
+        <button
+          className="px-4 py-2 bg-muted text-muted-foreground rounded-md hover:bg-muted-hover"
+          onClick={() => console.log("Cancel action")}
+        >
+          Cancel
+        </button>
+      </div>
     </DialogPrimitive.Content>
   </DialogPortal>
 ))

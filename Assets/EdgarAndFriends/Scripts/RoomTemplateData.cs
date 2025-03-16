@@ -91,7 +91,7 @@ namespace EdgarAndFriends
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoomTemplateData"/> class.
+        /// Initializes a new instance of the <see cref="RoomTemplateData"/> class with validation.
         /// </summary>
         /// <param name="name">The name of the room template.</param>
         /// <param name="size">The size of the room template.</param>

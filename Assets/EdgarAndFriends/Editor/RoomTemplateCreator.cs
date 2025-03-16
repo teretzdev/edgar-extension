@@ -110,11 +110,15 @@ namespace EdgarAndFriends.Editor
             newTemplateSize = template.Size;
             newTemplatePrefab = template.Prefab;
 
+            EditorGUILayout.LabelField("Edit Room Template", EditorStyles.boldLabel);
+            newTemplateName = EditorGUILayout.TextField("Template Name", newTemplateName);
+            newTemplateSize = EditorGUILayout.Vector2Field("Template Size", newTemplateSize);
+            newTemplatePrefab = (GameObject)EditorGUILayout.ObjectField("Template Prefab", newTemplatePrefab, typeof(GameObject), false);
+
             if (GUILayout.Button("Save Changes"))
             {
-                template.Name = newTemplateName;
-                template.Size = newTemplateSize;
-                template.Prefab = newTemplatePrefab;
+                template.UpdateSize(newTemplateSize);
+                template.UpdatePrefab(newTemplatePrefab);
 
                 Debug.Log($"Updated room template: {template.Name}");
 

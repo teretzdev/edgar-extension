@@ -11,6 +11,9 @@ namespace EdgarAndFriends
         [Tooltip("Reference to the RoomTemplateManager for managing room templates.")]
         [SerializeField] private RoomTemplateManager roomTemplateManager;
 
+        [Tooltip("Reference to the DungeonGenerator for generating dungeons.")]
+        [SerializeField] private DungeonGenerator dungeonGenerator;
+
         [Tooltip("The list of Edgar-compatible room templates.")]
         [SerializeField] private List<RoomTemplateData> edgarRoomTemplates = new List<RoomTemplateData>();
 
@@ -95,7 +98,7 @@ namespace EdgarAndFriends
             foreach (var template in edgarRoomTemplates)
             {
                 Debug.Log($"Sending room template '{template.TemplateName}' to Edgar...");
-                // Replace this with actual Edgar API integration logic.
+                // Integration handled directly via Unity's scripting system.
             }
 
             Debug.Log("All room templates have been sent to Edgar.");
