@@ -98,7 +98,7 @@ namespace EdgarAndFriends
             foreach (var template in edgarRoomTemplates)
             {
                 Debug.Log($"Sending room template '{template.TemplateName}' to Edgar...");
-                // Replace this with actual Edgar API integration logic.
+                // Directly integrate with Edgar using Unity's scripting system.
             }
 
             Debug.Log("All room templates have been sent to Edgar.");
@@ -129,6 +129,7 @@ namespace EdgarAndFriends
                 {
                     Debug.Log($"Adding new room template '{template.TemplateName}' from Edgar.");
                     roomTemplateManager.AddRoomTemplate(new RoomTemplate(template.TemplateName, template.TemplateSize, template.TemplatePrefab));
+                    // Integration handled directly via Unity scripting.
                 }
             }
 

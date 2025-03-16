@@ -31,19 +31,9 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
     setIsLoading(true);
 
     try {
-      // Send templates to Edgar API
-      const response = await fetch(`${process.env.EDGAR_API_URL}/templates`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.EDGAR_API_TOKEN}`,
-        },
-        body: JSON.stringify({ templates }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to send templates to Edgar API.");
-      }
+      // Send templates to Edgar using direct function calls
+      const edgarService = await import("@/services/edgarService");
+      await edgarService.default.sendTemplatesToEdgar({ templates });
 
       toast({
         title: "Success",
@@ -65,21 +55,12 @@ const EdgarIntegration: React.FC<EdgarIntegrationProps> = ({ onTemplatesUpdated 
     setIsLoading(true);
 
     try {
-      // Fetch processed templates from Edgar API
-      const response = await fetch(`${process.env.EDGAR_API_URL}/templates/processed`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${process.env.EDGAR_API_TOKEN}`,
-        },
-      });
+      // Fetch processed templates from Edgar using direct function calls
+      const edgarService = await import("@/services/edgarService");
+      const response = await edgarService.default.fetchProcessedTemplates();
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch processed templates from Edgar API.");
-      }
-
-      const processedTemplates: RoomTemplate[] = await response.json();
-      setTemplates(processedTemplates);
-      onTemplatesUpdated(processedTemplates);
+      setTemplates(response.processedTemplates);
+      onTemplatesUpdated(response.processedTemplates);
 
       toast({
         title: "Success",

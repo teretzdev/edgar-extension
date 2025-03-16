@@ -1,40 +1,12 @@
-import axios from "axios";
-
-type EdgarRequestPayload = {
-  templates: {
-    name: string;
-    size: {
-      width: number;
-      height: number;
-    };
-    description: string;
-    prefab?: string;
-  }[];
-};
-
-type EdgarResponse = {
-  success: boolean;
-  processedTemplates: {
-    name: string;
-    size: {
-      width: number;
-      height: number;
-    };
-    description: string;
-    prefab?: string;
-  }[];
-};
+import { RoomTemplate } from "@/types/roomTemplate";
 
 /**
- * Service for handling Edgar API integration.
+ * Service for handling Edgar integration through Unity's scripting system.
  */
 class EdgarService {
   private static instance: EdgarService;
-  private readonly apiUrl: string;
 
-  private constructor(apiUrl: string) {
-    this.apiUrl = apiUrl;
-  }
+  private constructor() {}
 
   /**
    * Gets the singleton instance of the EdgarService.
@@ -42,51 +14,41 @@ class EdgarService {
    */
   public static getInstance(): EdgarService {
     if (!EdgarService.instance) {
-      const apiUrl = process.env.EDGAR_API_URL || "/api/edgar";
-      EdgarService.instance = new EdgarService(apiUrl);
+      EdgarService.instance = new EdgarService();
     }
     return EdgarService.instance;
   }
 
   /**
-   * Sends room templates to the Edgar API for processing.
-   * @param {EdgarRequestPayload} payload - The payload containing room templates.
-   * @returns {Promise<EdgarResponse>} The response from the Edgar API.
-   * @throws {Error} If the API request fails.
+   * Sends room templates to Edgar for processing via Unity's scripting system.
+   * @param {RoomTemplate[]} templates - The list of room templates to process.
+   * @returns {Promise<void>} Resolves when the templates are successfully sent.
    */
-  public async sendTemplatesToEdgar(payload: EdgarRequestPayload): Promise<EdgarResponse> {
+  public async sendTemplatesToEdgar(templates: RoomTemplate[]): Promise<void> {
     try {
-      const response = await axios.post<EdgarResponse>(`${this.apiUrl}/templates`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.EDGAR_API_TOKEN}`,
-        },
-      });
-
-      return response.data;
+      // Simulate Unity scripting system call
+      console.log("Sending templates to Edgar via Unity scripting system:", templates);
+      // Replace with actual Unity scripting integration logic
     } catch (error) {
-      console.error("Failed to send templates to Edgar API:", error);
-      throw new Error("Failed to send templates to Edgar API. Please try again.");
+      console.error("Failed to send templates to Edgar:", error);
+      throw new Error("Failed to send templates to Edgar. Please try again.");
     }
   }
 
   /**
-   * Retrieves processed room templates from the Edgar API.
-   * @returns {Promise<EdgarResponse>} The response containing processed templates.
-   * @throws {Error} If the API request fails.
+   * Retrieves processed room templates from Edgar via Unity's scripting system.
+   * @returns {Promise<RoomTemplate[]>} The list of processed room templates.
+   * @throws {Error} If the retrieval fails.
    */
-  public async fetchProcessedTemplates(): Promise<EdgarResponse> {
+  public async fetchProcessedTemplates(): Promise<RoomTemplate[]> {
     try {
-      const response = await axios.get<EdgarResponse>(`${this.apiUrl}/templates/processed`, {
-        headers: {
-          Authorization: `Bearer ${process.env.EDGAR_API_TOKEN}`,
-        },
-      });
-
-      return response.data;
+      // Simulate Unity scripting system call
+      console.log("Fetching processed templates from Edgar via Unity scripting system");
+      // Replace with actual Unity scripting integration logic
+      return []; // Replace with actual processed templates
     } catch (error) {
-      console.error("Failed to fetch processed templates from Edgar API:", error);
-      throw new Error("Failed to fetch processed templates from Edgar API. Please try again.");
+      console.error("Failed to fetch processed templates from Edgar:", error);
+      throw new Error("Failed to fetch processed templates from Edgar. Please try again.");
     }
   }
 }

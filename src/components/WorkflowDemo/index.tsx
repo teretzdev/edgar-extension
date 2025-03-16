@@ -48,7 +48,7 @@ const WorkflowDemo: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 bg-gray-50 shadow-md rounded-lg">
       <h1 className="text-3xl font-bold mb-6 text-center">
-        Workflow Demo: From Prompt to Dungeon
+        Workflow Demo: Direct Integration with Edgar
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-white p-4 shadow rounded-lg">
@@ -76,7 +76,7 @@ const WorkflowDemo: React.FC = () => {
         <DungeonVisualizer templates={roomTemplates} />
       </div>
       <div className="mt-6 bg-white p-4 shadow rounded-lg">
-        <h2 className="text-xl font-semibold mb-4">Edgar Integration</h2>
+        <h2 className="text-xl font-semibold mb-4">Edgar Direct Integration</h2>
         <EdgarIntegration onTemplatesUpdated={handleTemplatesUpdated} />
       </div>
       <div className="mt-6 text-center">
