@@ -31,7 +31,12 @@ namespace EdgarAndFriends
                     return null;
                 }
 
-                roomTemplateData.Validate();
+                if (!ValidateRoomTemplateData(roomTemplateData))
+                {
+                    Debug.LogError("Parsed RoomTemplateData is invalid.");
+                    return null;
+                }
+
                 Debug.Log($"Successfully parsed room template: {roomTemplateData.TemplateName}");
                 return roomTemplateData;
             }

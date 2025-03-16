@@ -15,22 +15,25 @@ namespace EdgarAndFriends
         /// Adds a new room template to the manager.
         /// </summary>
         /// <param name="template">The room template to add.</param>
-        public void AddRoomTemplate(RoomTemplateData template)
+        /// <returns>True if the template was added successfully, false otherwise.</returns>
+        /// <param name="template">The room template to add.</param>
+        public bool AddRoomTemplate(RoomTemplateData template)
         {
             if (template == null)
             {
                 Debug.LogError("Cannot add a null room template.");
-                return;
+                return false;
             }
 
             if (roomTemplates.Exists(t => t.TemplateName == template.TemplateName))
             {
                 Debug.LogWarning($"Room template with name '{template.TemplateName}' already exists. Skipping addition.");
-                return;
+                return false;
             }
 
             roomTemplates.Add(template);
             Debug.Log($"Room template '{template.TemplateName}' added successfully.");
+            return true;
         }
 
         /// <summary>

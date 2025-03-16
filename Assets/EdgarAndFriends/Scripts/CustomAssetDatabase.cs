@@ -99,6 +99,18 @@ namespace EdgarAndFriends
         /// <summary>
         /// Retrieves all categories in the database as a new list.
         /// </summary>
+        /// <param name="categoryName">The name of the category to check.</param>
+        /// <returns>True if the category exists, otherwise false.</returns>
+        public bool CategoryExists(string categoryName)
+        {
+            if (string.IsNullOrEmpty(categoryName))
+            {
+                Debug.LogError("Category name cannot be null or empty.");
+                return false;
+            }
+
+            return FindCategoryByName(categoryName) != null;
+        }
         /// <returns>A list of all asset categories.</returns>
         public List<AssetCategory> GetAllCategories()
         {

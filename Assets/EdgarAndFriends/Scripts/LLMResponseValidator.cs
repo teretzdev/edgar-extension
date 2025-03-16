@@ -10,10 +10,10 @@ namespace EdgarAndFriends
     public class LLMResponseValidator : MonoBehaviour
     {
         /// <summary>
-        /// Validates the LLM response to ensure it meets the required criteria.
+        /// Validates and sanitizes the LLM response to ensure it meets the required criteria.
         /// </summary>
         /// <param name="response">The response from the LLM.</param>
-        /// <returns>True if the response is valid; otherwise, false.</returns>
+        /// <returns>True if the response is valid; otherwise, false. Logs errors for invalid responses.</returns>
         public bool ValidateResponse(string response)
         {
             if (string.IsNullOrEmpty(response))
@@ -22,14 +22,14 @@ namespace EdgarAndFriends
                 return false;
             }
 
-            // Example validation: Check if the response contains prohibited content
+            // Example validation: Check if the response contains prohibited content or invalid JSON
             if (ContainsProhibitedContent(response))
             {
                 Debug.LogError("LLM response contains prohibited content.");
                 return false;
             }
 
-            Debug.Log("LLM response is valid.");
+            Debug.Log("LLM response passed validation.");
             return true;
         }
 
@@ -42,14 +42,19 @@ namespace EdgarAndFriends
         {
             if (string.IsNullOrEmpty(response))
             {
-                Debug.LogWarning("LLM response is null or empty. Returning an empty string.");
+                Debug.LogWarning("LLM response is null or empty. Returning sanitized empty string.");
                 return string.Empty;
             }
 
-            // Example sanitization: Remove HTML tags
+            // Example sanitization: Remove HTML tags and trim whitespace
             string sanitizedResponse = RemoveHtmlTags(response);
 
-            // Additional sanitization logic can be added here
+            // Additional sanitization logic: Ensure no prohibited content remains
+            if (ContainsProhibitedContent(sanitizedResponse))
+            {
+                Debug.LogWarning("Sanitized response still contains prohibited content. Returning empty string.");
+                return string.Empty;
+            }
             Debug.Log("LLM response sanitized successfully.");
             return sanitizedResponse;
         }

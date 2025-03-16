@@ -48,18 +48,33 @@ namespace EdgarAndFriends.Editor
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Existing Room Templates", EditorStyles.boldLabel);
 
-            // Scrollable list of existing room templates
+            // Scrollable list of existing room templates with batch selection
+            EditorGUILayout.LabelField("Select templates for batch operations:", EditorStyles.label);
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, GUILayout.Height(300));
+            List<RoomTemplateData> selectedTemplates = new List<RoomTemplateData>();
             foreach (var template in roomTemplates)
             {
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField(template.TemplateName, GUILayout.Width(150));
+                bool isSelected = EditorGUILayout.ToggleLeft(template.TemplateName, false, GUILayout.Width(150));
+                if (isSelected)
+                {
+                    selectedTemplates.Add(template);
+                }
                 EditorGUILayout.LabelField($"Size: {template.TemplateSize}", GUILayout.Width(100));
                 if (GUILayout.Button("Generate", GUILayout.Width(100)))
                 {
                     GenerateSingleRoomTemplate(template);
                 }
                 EditorGUILayout.EndHorizontal();
+            }
+
+            if (selectedTemplates.Count > 0 && GUILayout.Button("Generate Selected Templates"))
+            {
+                foreach (var selectedTemplate in selectedTemplates)
+                {
+                    GenerateSingleRoomTemplate(selectedTemplate);
+                }
+                Debug.Log($"Generated {selectedTemplates.Count} selected room templates.");
             }
             EditorGUILayout.EndScrollView();
         }

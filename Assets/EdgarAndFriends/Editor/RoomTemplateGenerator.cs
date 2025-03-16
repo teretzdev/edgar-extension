@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngineEdgarAndFriends EdgarAndFriends.Editor
+using UnityEngine;
+using EdgarAndFriends;
 {
     /// <summary>
     /// Provides a custom editor window for generating room templates.
