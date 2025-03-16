@@ -1,20 +1,29 @@
-import { useState, useCallback } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 
 type PromptHistoryItem = {
   id: string;
   content: string;
 };
 
-type UsePromptHistoryReturn = {
+type PromptHistoryContextType = {
   history: PromptHistoryItem[];
   addPrompt: (content: string) => void;
   removePrompt: (id: string) => void;
   clearHistory: () => void;
-  remixPrompt: (id: string) => void;
   savePromptToLibrary: (prompt: PromptHistoryItem) => void;
 };
 
-const usePromptHistory = (): UsePromptHistoryReturn => {
+const PromptHistoryContext = createContext<PromptHistoryContextType | undefined>(undefined);
+
+export const usePromptHistory = (): PromptHistoryContextType => {
+  const context = useContext(PromptHistoryContext);
+  if (!context) {
+    throw new Error("usePromptHistory must be used within a PromptHistoryProvider");
+  }
+  return context;
+};
+
+export const PromptHistoryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [history, setHistory] = useState<PromptHistoryItem[]>([]);
 
   const addPrompt = useCallback((content: string) => {
@@ -39,29 +48,16 @@ const usePromptHistory = (): UsePromptHistoryReturn => {
     setHistory([]);
   }, []);
 
-  const remixPrompt = useCallback((id: string) => {
-    const prompt = history.find((item) => item.id === id);
-    if (!prompt) {
-      console.error("Prompt not found.");
-      return;
-    }
-    const remixedContent = `${prompt.content} [Remixed]`;
-    addPrompt(remixedContent);
-  }, [history, addPrompt]);
-
   const savePromptToLibrary = useCallback((prompt: PromptHistoryItem) => {
     console.log(`Saving prompt to library: ${prompt.content}`);
     // Add logic to save the prompt to the library
   }, []);
 
-  return {
-    history,
-    addPrompt,
-    removePrompt,
-    clearHistory,
-    remixPrompt,
-    savePromptToLibrary,
-  };
+  return (
+    <PromptHistoryContext.Provider
+      value={{ history, addPrompt, removePrompt, clearHistory, savePromptToLibrary }}
+    >
+      {children}
+    </PromptHistoryContext.Provider>
+  );
 };
-
-export default usePromptHistory;

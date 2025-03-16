@@ -65,6 +65,9 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
     const confirmation = window.confirm(`Are you sure you want to save "${template.name}" to the library?`);
     if (!confirmation) return;
 
+    // Add logic to save the template to the library
+    console.log(`Saving template "${template.name}" to the library.`);
+
     toast({
       title: "Template Saved",
       description: `The template "${template.name}" has been saved to the library.`,
@@ -72,6 +75,9 @@ const PromptLibrary: React.FC<PromptLibraryProps> = ({ onSelectTemplate }) => {
   };
 
   const handleDeleteTemplate = (id: string) => {
+    const confirmation = window.confirm("Are you sure you want to delete this template?");
+    if (!confirmation) return;
+
     setTemplates((prevTemplates) => prevTemplates.filter((template) => template.id !== id));
     toast({
       title: "Template Deleted",

@@ -100,7 +100,7 @@ const PromptHistory: React.FC<PromptHistoryProps> = ({ onSelectPrompt, onSavePro
                     <Button variant="primary" onClick={() => handleSavePrompt(item)}>
                       Save to Library
                     </Button>
-                    <Button variant="secondary" onClick={() => onSelectPrompt({ ...item, content: `Remix: ${item.content}` })}>
+                    <Button variant="secondary" onClick={() => handleRemixPrompt(item)}>
                       Remix
                     </Button>
                   </div>
